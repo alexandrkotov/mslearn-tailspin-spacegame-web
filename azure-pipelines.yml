@@ -90,15 +90,18 @@ steps:
   - script: type $(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml
     displayName: 'Output Coverage File'
 
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage report'
     inputs:
       codeCoverageTool: 'cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml'
-      # reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
 
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
     displayName: 'List Coverage Directory Contents'
+
+  - script: dir $(Build.SourcesDirectory)\CodeCoverage\
+    displayName: 'List CodeCoverage Directory Contents'  
 
   - task: DotNetCoreCLI@2
     displayName: "Publish the project - $(buildConfiguration)"

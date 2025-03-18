@@ -87,7 +87,7 @@ steps:
   #       Write-Host "##vso[task.setvariable variable=CodeCoverageReportDirectory]$reportDirectory"
   #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
-  - script: type $(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml
+  - script: type $(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml
     displayName: 'Output Coverage File'
 
   - task: PublishCodeCoverageResults@1

@@ -90,16 +90,16 @@ steps:
   - script: type $(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml
     displayName: 'Output Coverage File'
 
-  # - task: PublishCodeCoverageResults@2
-  #   displayName: 'Publish code coverage report'
-  #   inputs:
-  #     codeCoverageTool: 'cobertura'
-  #     summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml'
-  #     reportDirectory: '$(Build.SourcesDirectory)\CodeCoverage'
-  
   - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
     displayName: 'Remove index.htm'
 
+  - task: PublishCodeCoverageResults@2
+    displayName: 'Publish code coverage report'
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml'
+      reportDirectory: '$(Build.SourcesDirectory)\CodeCoverage'
+  
   # - task: PowerShell@2
   #   displayName: 'Publish code coverage report'
   #   inputs:
@@ -111,14 +111,14 @@ steps:
   #       Write-Host "##vso[task.setvariable variable=CodeCoverageReportDirectory]$reportDirectory"
   #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
-  - task: PowerShell@2
-    displayName: 'Publish code coverage report'
-    inputs:
-      targetType: 'inline'
-      script: |
-        $summaryFile = "$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml"
-        $reportDirectory = "$(Build.SourcesDirectory)\CodeCoverage"
-        Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
+  # - task: PowerShell@2
+  #   displayName: 'Publish code coverage report'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: |
+  #       $summaryFile = "$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml"
+  #       $reportDirectory = "$(Build.SourcesDirectory)\CodeCoverage"
+  #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
     displayName: 'List Coverage Directory Contents'

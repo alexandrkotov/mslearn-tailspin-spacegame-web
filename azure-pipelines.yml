@@ -87,14 +87,18 @@ steps:
   #       Write-Host "##vso[task.setvariable variable=CodeCoverageReportDirectory]$reportDirectory"
   #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
-  - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
-    displayName: 'List Coverage Directory Contents'
+  - script: type $(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml
+    displayName: 'Output Coverage File'
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage report'
     inputs:
       codeCoverageTool: 'cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml'
+      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+
+  - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
+    displayName: 'List Coverage Directory Contents'
 
   - task: DotNetCoreCLI@2
     displayName: "Publish the project - $(buildConfiguration)"

@@ -96,6 +96,9 @@ steps:
   #     codeCoverageTool: 'cobertura'
   #     summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml'
   #     reportDirectory: '$(Build.SourcesDirectory)\CodeCoverage'
+  
+  - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
+    displayName: 'Remove index.htm'
 
   - task: PowerShell@2
     displayName: 'Publish code coverage report'
@@ -111,8 +114,6 @@ steps:
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
     displayName: 'List Coverage Directory Contents'
 
-  - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
-    displayName: 'Remove index.htm'
 
   - script: dir $(Build.SourcesDirectory)\CodeCoverage\
     displayName: 'List CodeCoverage Directory Contents'  

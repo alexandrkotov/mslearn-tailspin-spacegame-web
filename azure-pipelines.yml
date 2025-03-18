@@ -95,7 +95,7 @@ steps:
     inputs:
       codeCoverageTool: 'cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml'
-      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+      # reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
 
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
     displayName: 'List Coverage Directory Contents'

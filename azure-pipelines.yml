@@ -111,6 +111,9 @@ steps:
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
     displayName: 'List Coverage Directory Contents'
 
+  - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
+    displayName: 'Remove index.htm'
+
   - script: dir $(Build.SourcesDirectory)\CodeCoverage\
     displayName: 'List CodeCoverage Directory Contents'  
 

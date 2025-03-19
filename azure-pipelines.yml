@@ -93,12 +93,12 @@ steps:
   - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
     displayName: 'Remove index.htm'
 
-  - task: PublishPipelineArtifact@1
+  - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage report'
     inputs:
-      targetPath: '$(Build.SourcesDirectory)/CodeCoverage'
-      artifact: 'CodeCoverageReport'
-      publishLocation: 'pipeline'
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml'
+      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
   
   # - task: PowerShell@2
   #   displayName: 'Publish code coverage report'

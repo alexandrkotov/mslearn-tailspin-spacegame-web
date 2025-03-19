@@ -76,40 +76,11 @@ steps:
       custom: tool
       arguments: "run reportgenerator -reports:$(Build.SourcesDirectory)\\**\\coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\\CodeCoverage -reporttypes:HtmlInline_AzurePipelines"
 
-  # - task: PowerShell@2
-  #   displayName: "Publish code coverage report"
-  #   inputs:
-  #     targetType: "inline"
-  #     script: |
-  #       $summaryFile = "$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml"
-  #       $reportDirectory = "$(Build.SourcesDirectory)/CodeCoverage"
-  #       Write-Host "##vso[task.setvariable variable=CodeCoverageSummaryFile]$summaryFile"
-  #       Write-Host "##vso[task.setvariable variable=CodeCoverageReportDirectory]$reportDirectory"
-  #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
-
   - script: type $(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml
-    displayName: 'Output Coverage File'
+    displayName: 'Debug step: Output Coverage File'
 
   - script: del $(Build.SourcesDirectory)\CodeCoverage\index.htm
     displayName: 'Remove index.htm'
-
-  # - task: PublishCodeCoverageResults@2
-  #   displayName: 'Publish code coverage report'
-  #   inputs:
-  #     codeCoverageTool: 'cobertura'
-  #     summaryFileLocation: '$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml'
-  #     reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
-  
-  # - task: PowerShell@2
-  #   displayName: 'Publish code coverage report'
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: |
-  #       $summaryFile = "$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml"
-  #       $reportDirectory = "$(Build.SourcesDirectory)\CodeCoverage"
-  #       Write-Host "##vso[task.setvariable variable=CodeCoverageSummaryFile]$summaryFile"
-  #       Write-Host "##vso[task.setvariable variable=CodeCoverageReportDirectory]$reportDirectory"
-  #       Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
   - task: PowerShell@2
     displayName: 'Publish code coverage report'
@@ -121,11 +92,11 @@ steps:
         Write-Host "##vso[codecoverage.publish codecoveragetool=Cobertura;summaryfile=$summaryFile;reportdirectory=$reportDirectory;]"
 
   - script: dir $(Build.SourcesDirectory)\TestResults\Coverage\
-    displayName: 'List Coverage Directory Contents'
+    displayName: 'Debug step: List Coverage Directory Contents'
 
 
   - script: dir $(Build.SourcesDirectory)\CodeCoverage\
-    displayName: 'List CodeCoverage Directory Contents'  
+    displayName: 'Debug step: List CodeCoverage Directory Contents'  
 
   - task: DotNetCoreCLI@2
     displayName: "Publish the project - $(buildConfiguration)"
